@@ -1,0 +1,7 @@
+{
+  "name": "Projek PHP Pertama",
+  "description": "Mulai belajar PHP dengan heroku kuy",
+  "repository": "https://github.com/majalaya/test",
+  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/main/public/node.svg",
+  "keywords": ["php", "express", "heroku"]
+}
