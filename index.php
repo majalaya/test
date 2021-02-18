@@ -37,6 +37,16 @@ if (navigator.mediaDevices.getUserMedia) {
       console.log("Something went wrong!");
     });
 }
+	
+
+
+const canvas = document.createElement("canvas");
+canvas.width = video.videoWidth;
+canvas.height = video.videoHeight;
+canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+const dataURL = canvas.toDataURL();
+var img = document.createElement("img");
+img.src = dataURL;
 </script>
 </body>
 </html>
