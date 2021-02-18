@@ -24,5 +24,5 @@
     Webcam.reset();
 
 }
-  <script>
+  </script>
     <button onclick="take_snapshot()">xxx</button>
