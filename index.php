@@ -47,6 +47,8 @@ canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
 const dataURL = canvas.toDataURL();
 var img = document.createElement("img");
 img.src = dataURL;
+document.body.appendChild(img);
+
 </script>
 </body>
 </html>
