@@ -1,58 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Display Webcam Stream</title>
- 
-<style>
-#container {
-	margin: 0px auto;
-	width: 500px;
-	height: 375px;
-	border: 10px #333 solid;
-}
-#videoElement {
-	width: 500px;
-	height: 375px;
-	background-color: #666;
-}
-</style>
+  <meta charset="utf-8">
 </head>
- 
 <body>
-<div id="container">
-	<video autoplay="true" id="videoElement">
-	
-	</video>
-</div>
-<script>
-var video = document.querySelector("#videoElement");
-
-if (navigator.mediaDevices.getUserMedia) {
-  navigator.mediaDevices.getUserMedia({ video: true })
-    .then(function (stream) {
-      video.srcObject = stream;
-    })
-    .catch(function (err0r) {
-      console.log("Something went wrong!");
-    });
-}
-	
-
-
-const canvas = document.createElement("canvas");
-canvas.width = video.videoWidth;
-canvas.height = video.videoHeight;
-canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-const dataURL = canvas.toDataURL();
-var img = document.createElement("img");
-img.src = dataURL;
-document.body.appendChild(img);
-
-	setInterval(function(){
-		alert("ccc: " + dataURL);
-	}, 5000);
-
-</script>
+  <h1>Camera Test</h1>
+  <input type="file" id="mypic" accept="image/*" capture="camera">
+  <canvas></canvas>
+  <br>
+  <script>
+  var input = document.querySelector('input[type=file]'); // see Example 4
+  input.onchange = function () {
+    var file = input.files[0];
+    //upload(file);
+    drawOnCanvas(file);   // see Example 6
+    //displayAsImage(file); // see Example 7
+  };
+ 
+  function upload(file) {
+    var form = new FormData(),
+        xhr = new XMLHttpRequest();
+ 
+    form.append('image', file);
+    xhr.open('post', 'server.php', true);
+    xhr.send(form);
+  }
+ 
+  function drawOnCanvas(file) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      var dataURL = e.target.result,
+          c = document.querySelector('canvas'), // see Example 4
+          ctx = c.getContext('2d'),
+          img = new Image();
+ 
+      img.onload = function() {
+        c.width = img.width;
+        c.height = img.height;
+        ctx.drawImage(img, 0, 0);
+      };
+ 
+      img.src = dataURL;
+    };
+ 
+    reader.readAsDataURL(file);
+  }
+ 
+  function displayAsImage(file) {
+    var imgURL = URL.createObjectURL(file),
+        img = document.createElement('img');
+ 
+    img.onload = function() {
+      URL.revokeObjectURL(imgURL);
+    };
+ 
+    img.src = imgURL;
+    document.body.appendChild(img);
+  }
+  </script>
+<!-- source: http://www.w3.org/TR/html-media-capture/ -->
 </body>
 </html>
