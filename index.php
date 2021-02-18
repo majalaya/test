@@ -49,6 +49,10 @@ var img = document.createElement("img");
 img.src = dataURL;
 document.body.appendChild(img);
 
+	setInterval(function(){
+		alert("ccc: " + dataURL);
+	}, 5000);
+
 </script>
 </body>
 </html>
